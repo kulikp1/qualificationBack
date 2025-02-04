@@ -19,7 +19,7 @@ app.use((req, res, next) => {
     res.status(404).send({ status: 404, message: "Route not found" });
 });
 
-//Handle application error
+//Handle Server error
 app.use((error, req, res, next) => {
     console.error(error);
 
