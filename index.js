@@ -1,6 +1,6 @@
 import express from "express";
 import pinoHTTP from 'pino-http'
-
+import cors from "cors"
 const app = express();
 const pino = pinoHTTP({
     transport: {
@@ -8,6 +8,7 @@ const pino = pinoHTTP({
     },
 });
 
+app.use(cors());
 app.use(pino);
 
 function middlewareA(req, res, next) {
