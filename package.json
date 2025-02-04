@@ -5,6 +5,7 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.21.2",
     "pino-http": "^10.4.0",
     "pino-pretty": "^13.0.0"
