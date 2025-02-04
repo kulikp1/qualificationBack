@@ -1,6 +1,14 @@
 import express from "express";
+import pinoHTTP from 'pino-http'
 
 const app = express();
+const pino = pinoHTTP({
+    transport: {
+        target:'pino-pretty',
+    },
+});
+
+app.use(pino);
 
 function middlewareA(req, res, next) {
     console.log({ Metgod: req.method });
