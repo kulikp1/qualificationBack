@@ -25,9 +25,6 @@ export const setupServer = () => {
       message: 'Hello! Welcome to ContactsApp!',
     });
   });
-
- 
-
   
   app.use('*', (req, res) => {
     res.status(404).json({

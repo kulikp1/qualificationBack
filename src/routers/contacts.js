@@ -1,32 +1,23 @@
 import { Router } from 'express';
+import {
+  createContactController,
+  deleteContactController,
+  getContactByIdController,
+  getStudentsController,
+  patchContactController,
+} from '../controllers/contacts.js';
+import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 
- Router.get('/contacts', async (req, res) => {
-    const contacts = await getAllContacts();
+const router = Router();
 
-    res.status(200).json({
-      status: 200,
-      message: 'Successfully found contacts!',
-      data: contacts,
-    });
-  });
+router.get('/contacts', ctrlWrapper(getStudentsController));
 
-Router.get('/contacts/:contactId', async (req, res, next) => {
-    const contactId = req.params.contactId;
-    const contact = await getContactById(contactId);
+router.get('/contacts/:contactId', ctrlWrapper(getContactByIdController));
 
-    if (!contact) {
-      res.status(404).json({
-        message: 'Contact not found',
-      });
-      return;
-    }
+router.post('/contacts', ctrlWrapper(createContactController));
 
-    res.status(200).json({
-      status: 200,
-      message: `Successfully found contact with id ${contactId}!`,
-      data: contact,
-    });
-  });
+router.patch('/contacts/:contactId', ctrlWrapper(patchContactController));
 
+router.delete('/contacts/:contactId', ctrlWrapper(deleteContactController));
 
 export default router;
