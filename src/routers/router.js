@@ -7,7 +7,7 @@ import usersResetPasswordRouter from './usersResetPasswordRouter.js';
 import usersUpdateRouter from './usersUpdateRouter.js';
 
 import { auth } from '../middlewares/auth.js';
-import waterDataRouter from './waterDataRouter.js';
+import moneyDataRouter from './moneyDataRouter.js';
 import swaggerDocs from '../middlewares/swaggerDocs.js';
 
 const router = Router();
@@ -19,7 +19,7 @@ router.use('/users', authDataUserRouter);
 router.use('/users', usersResetPasswordRouter);
 router.use('/users', usersUpdateRouter);
 
-router.use('/water/all', waterDataRouter);
-router.use('/water', auth, waterDataRouter);
+router.use('/money/all', moneyDataRouter);
+router.use('/money', auth, moneyDataRouter);
 
 export default router;
