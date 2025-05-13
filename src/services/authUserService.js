@@ -2,10 +2,10 @@ import { UserCollection } from '../db/models/userModel.js';
 import { AuthUserSessionCollection } from '../db/models/authUserSessionModel.js';
 import { getEncryptedPassword } from '../utils/password.js';
 import createHttpError from 'http-errors';
-import {
-  getFullNameFromGoogleTokenPayload,
-  validateCode,
-} from '../utils/googleOAuth2.js';
+// import {
+//   getFullNameFromGoogleTokenPayload,
+//   validateCode,
+// } from '../utils/googleOAuth2.js';
 import { getAuthUserSessionObject } from './authUserSessionService.js';
 import bcrypt from 'bcrypt';
 import { randomBytes } from 'crypto';

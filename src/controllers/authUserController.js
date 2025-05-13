@@ -20,7 +20,7 @@ import {
 
 import { comparePasswords } from '../utils/password.js';
 
-import { generateAuthUrl } from '../utils/googleOAuth2.js';
+// import { generateAuthUrl } from '../utils/googleOAuth2.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { UserCollection } from '../db/models/userModel.js';
 
@@ -145,33 +145,33 @@ export const refreshAuthUserSessionController = async (req, res) => {
   });
 };
 
-export const getGoogleOAuthUrlController = async (req, res) => {
-  const url = generateAuthUrl();
-  res.json({
-    status: 200,
-    message: 'Successfully get Google OAuth url!',
-    data: {
-      url,
-    },
-  });
-};
+// export const getGoogleOAuthUrlController = async (req, res) => {
+//   const url = generateAuthUrl();
+//   res.json({
+//     status: 200,
+//     message: 'Successfully get Google OAuth url!',
+//     data: {
+//       url,
+//     },
+//   });
+// };
 
-export const loginWithGoogleController = async (req, res) => {
-  const session = await loginOrSignupWithGoogle(req.body.code);
+// export const loginWithGoogleController = async (req, res) => {
+//   const session = await loginOrSignupWithGoogle(req.body.code);
 
-  const user = await UserCollection.findById(session.userId);
+//   const user = await UserCollection.findById(session.userId);
 
-  setupAuthUserSessionCookies(res, session);
+//   setupAuthUserSessionCookies(res, session);
 
-  res.json({
-    status: 200,
-    message: 'Successfully logged in via Google OAuth!',
-    data: {
-      accessToken: session.accessToken,
-      user
-    },
-  });
-};
+//   res.json({
+//     status: 200,
+//     message: 'Successfully logged in via Google OAuth!',
+//     data: {
+//       accessToken: session.accessToken,
+//       user
+//     },
+//   });
+// };
 
 export const patchUserPhotoController = async (req, res) => {
   const userId = req.authUser._id;
