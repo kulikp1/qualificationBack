@@ -8,13 +8,13 @@ import usersUpdateRouter from './usersUpdateRouter.js';
 
 import { auth } from '../middlewares/auth.js';
 import moneyDataRouter from './moneyDataRouter.js';
-import swaggerDocs from '../middlewares/swaggerDocs.js';
+// import swaggerDocs from '../middlewares/swaggerDocs.js';
 
 const router = Router();
 
 router.use('/auth', authUserRouter);
 // router.use('/auth/google', authGoogleRouter);
-router.use('/api-docs', swaggerDocs());
+// router.use('/api-docs', swaggerDocs());
 router.use('/users', authDataUserRouter);
 router.use('/users', usersResetPasswordRouter);
 router.use('/users', usersUpdateRouter);
