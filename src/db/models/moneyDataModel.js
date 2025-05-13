@@ -10,4 +10,4 @@ const moneyItemSchema = new Schema(
   { timestamps: true, versionKey: false },
 );
 
-export const moneyDataCollection = model('moneyitem', moneyItemSchema);
+export const MoneyDataCollection = model('moneyitem', moneyItemSchema);
