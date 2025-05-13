@@ -1,38 +1,78 @@
-
 import createHttpError from 'http-errors';
 import {
-  getAuthUserByEmail,
-  updateUsersById,
-} from '../services/authUserService.js';
+  addMoneyDataService,
+  updateMoneyItemService,
+  deleteMoneyItemService,
+  getMoneyDataDayService,
+  getMoneyDataMonthService,
+} from '../services/moneyDataService.js';
 
-export const usersUpdateController = async (req, res, next) => {
+export const createMoneyDataController = async (req, res) => {
+  const data = await addMoneyDataService(req.moneyData);
+  res.status(201).json({
+    status: 201,
+    message: `Successfully created a moneyItem!`,
+    data,
+  });
+};
+
+export const upsertMoneyItemController = async (req, res) => {
+  const { id } = req.params;
   const userId = req.authUser._id;
-  const { email } = req.body;
+  const result = await updateMoneyItemService(id, userId, req.body, {
+    upsert: true,
+  });
 
-  /* если с front-end приходит email
-  мы ищем его в db, если его нет, значит пользователь меняет его на новый,
-  ? если он есть в db, проверяем кому он принадлежит:
-  * если нашему пользователю, значит он пришел автоматом со вмеми данными, игнорируем и обновляем все
-  ! если он принадледжит другому пользователю, сообщаем что замена не возможна */
-
-  if (email) {
-    const userEmail = await getAuthUserByEmail(email);
-
-    if (userEmail !== null && !userId.equals(userEmail._id)) {
-      throw createHttpError(
-        409,
-        'This email is already in use and cannot be changed',
-      );
-    }
+  if (!result) {
+    throw createHttpError(404, 'MoneyItem not found');
   }
 
-  const user = await updateUsersById(userId, req.body);
+  const status = result.isNew ? 201 : 200;
+  res.status(status).json({
+    status,
+    message: `Successfully upserted a moneyItem!`,
+    data: result.moneyItem,
+  });
+};
 
-  if (!user) throw createHttpError(404, 'User not found');
+export const deleteMoneyItemByIdController = async (req, res, next) => {
+  const { id } = req.params;
+  const userId = req.authUser._id;
+  const moneyItem = await deleteMoneyItemService(userId, id);
 
-  res.status(200).json({
-    status: 200,
-    message: 'Successfully updated user data!',
-    data: user,
+  if (!moneyItem) {
+    throw createHttpError(404, `MoneyItem by id:[${id}] not exists`);
+  }
+
+  res.status(204).send();
+};
+
+export const getMoneyDataDayController = async (req, res, next) => {
+  let { date } = req.params;
+  const user = req.authUser;
+  const userId = user._id;
+
+  const day = await getMoneyDataDayService(userId, date);
+
+  res.send({
+    date,
+    userId,
+    dailyNorm: user.dailyNorm,
+    totalValue: day.totalValue,
+    data: day.data,
+  });
+};
+
+export const getMoneyDataMonthController = async (req, res, next) => {
+  let { date } = req.params;
+  const user = req.authUser;
+  const userId = user._id;
+
+  const moneyData = await getMoneyDataMonthService(userId, date);
+
+  res.send({
+    userId,
+    dailyNorm: user.dailyNorm,
+    data: moneyData,
   });
 };
