@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import authUserRouter from './authUserRouter.js';
-import authGoogleRouter from './authGoogleRouter.js';
+// import authGoogleRouter from './authGoogleRouter.js';
 import authDataUserRouter from './authDataUserRouter.js';
 import usersResetPasswordRouter from './usersResetPasswordRouter.js';
 import usersUpdateRouter from './usersUpdateRouter.js';
@@ -13,7 +13,7 @@ import swaggerDocs from '../middlewares/swaggerDocs.js';
 const router = Router();
 
 router.use('/auth', authUserRouter);
-router.use('/auth/google', authGoogleRouter);
+// router.use('/auth/google', authGoogleRouter);
 router.use('/api-docs', swaggerDocs());
 router.use('/users', authDataUserRouter);
 router.use('/users', usersResetPasswordRouter);
