@@ -91,7 +91,7 @@ export const loginAuthUserController = async (req, res) => {
 
   const isPasswordCorrect = await comparePasswords(password, authUser.password);
   if (!isPasswordCorrect) {
-    throw createHttpError(401, 'Unauthorized');
+    throw createHttpError(401, 'Invalid password');
   }
 
   const session = await setupAuthUserSession(authUser, res);
