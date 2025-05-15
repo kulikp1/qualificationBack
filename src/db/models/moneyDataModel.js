@@ -6,6 +6,8 @@ const moneyItemSchema = new Schema(
     date: { type: String, required: true },
     time: { type: String, required: true },
     value: { type: Number, required: true },
+    category: { type: String, required: true }, // Додано поле категорії
+
   },
   { timestamps: true, versionKey: false },
 );

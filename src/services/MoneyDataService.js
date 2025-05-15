@@ -48,6 +48,7 @@ export const getMoneyDataDayService = async (userId, date) => {
     id: item._id,
     time: item.time,
     value: item.value,
+    category: item.category,
   }));
   const totalValue = result.reduce((acc, item) => acc + item.value, 0);
   return { data, totalValue };
