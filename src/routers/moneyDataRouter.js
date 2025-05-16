@@ -40,7 +40,7 @@ router.delete(
 
 router.get('/day/:date', controllerWrapper(getMoneyDataDayController));
 router.get('/month/:date', controllerWrapper(getMoneyDataMonthController));
-router.get('/', controllerWrapper(getMoneyDataDayController)); // ← додай цей маршрут
+router.get('/', controllerWrapper(getMoneyDataDayController)); 
 
 
 export default router;
