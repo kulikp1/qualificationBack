@@ -3,6 +3,7 @@ import Joi from 'joi';
 export const registerAuthUserSchema = Joi.object({
   email: Joi.string().required().email(),
   password: Joi.string().required(),
+  name: Joi.string().required(),
 });
 
 export const loginAuthUserSchema = Joi.object({
